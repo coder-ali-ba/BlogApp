@@ -4,7 +4,7 @@ import { app } from '../firebase'
 import { Link } from 'react-router-dom';
 
 function Login() {
-    console.log("firbase :" , app);
+    // console.log("firbase :" , app);
     
   return (
    <Stack border={"2px solid yellow"} padding={"20px"} backgroundColor={"lightgray"} maxWidth={"500px"} margin={"auto"} gap={"10px"} borderRadius={"20px"} marginTop={"50px"}>
@@ -13,8 +13,8 @@ function Login() {
        <TextField label='Password' variant='standard' color='success' type='password'> </TextField>
 
 
-       <Typography>Don't have an account
-            <Link to="/signup"> Signup</Link>
+       <Typography >Don't have an account
+            <Link className='text-blue-500' to="/signup"> Signup</Link>
        </Typography> 
 
        <Button variant='contained' sx={{marginTop:"20px"}}>LogIn</Button>
