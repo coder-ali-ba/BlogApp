@@ -1,31 +1,71 @@
 import { Button, CircularProgress, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../firebase.js'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-
+import { Bounce, toast } from 'react-toastify'
 
 function Signup() {
   const [fullname, setFullName]= useState("")
   const [Email, setEmail]= useState("")
   const [Password, setPassword]= useState("")
+  const [inProgress , setInProgress]=useState(false)
 
-  let inProgress = false;
+  const navigate = useNavigate()
+
+ 
 
   const signInHandler = async() => {
-    
+   setInProgress(true)
     try {
-      inProgress=true
-    await createUserWithEmailAndPassword(auth , Email , Password)
-    console.log("Name :" , fullname);
-    console.log("Email :" , Email);
-    console.log("Password :" , Password);
-     
-     inProgress=false
+      if(fullname =="" || Email =="" || Password ==""){
+        toast.error('Please Fill All Fields', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+        });
+        setInProgress(false)
+        return
+      }   
+    await createUserWithEmailAndPassword(auth , Email , Password) 
+    setInProgress(false)
 
+       toast('Successfully signed in', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+        });
+
+        navigate('/')
     } catch (error) {
       console.log(error.message);
-      inProgress=true
+      setInProgress(true)
+        toast.error('Invalid Email or Password', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+        });
+
+      setInProgress(false)
+
     }
     
    }
