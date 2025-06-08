@@ -4,6 +4,8 @@ import { Link, Route, Routes } from 'react-router-dom'
 import Login from './Auth/Login'
 import Signup from './Auth/Signup'
 import { Bounce, ToastContainer } from 'react-toastify'
+import Admin from './AdminDAshboard/Admin'
+import User from './UserDashboard/User'
 
 function App() {
 
@@ -31,6 +33,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
+        <Route path='/admindashboard' element={<Admin />}></Route>
+        <Route path='/userdashboard' element={<User />}></Route>
       </Routes>
     </>
   )

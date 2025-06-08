@@ -1,9 +1,10 @@
 import { Button, CircularProgress, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { auth } from '../firebase.js'
+import { auth, db } from '../firebase.js'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { Bounce, toast } from 'react-toastify'
+import { doc, setDoc, Timestamp } from 'firebase/firestore'
 
 function Signup() {
   const [fullname, setFullName]= useState("")
@@ -12,10 +13,22 @@ function Signup() {
   const [inProgress , setInProgress]=useState(false)
 
   const navigate = useNavigate()
-
+ 
+ 
+ 
+  const userObj ={
+         name : fullname,
+         emailAddress :Email,
+         userPassword : Password,
+         createdAt :Timestamp.now(),
+         userType :"user"
+         }
  
 
   const signInHandler = async() => {
+ 
+
+
    setInProgress(true)
     try {
       if(fullname =="" || Email =="" || Password ==""){
@@ -33,7 +46,8 @@ function Signup() {
         setInProgress(false)
         return
       }   
-    await createUserWithEmailAndPassword(auth , Email , Password) 
+     const userCredential = await createUserWithEmailAndPassword(auth , Email , Password) 
+     const uid =userCredential.user.uid
     setInProgress(false)
 
        toast('Successfully signed in', {
@@ -47,6 +61,10 @@ function Signup() {
               theme: "light",
               transition: Bounce,
         });
+        
+        
+        
+        await setDoc(doc(db, "Users" , uid),userObj)
 
         navigate('/')
     } catch (error) {
