@@ -22,7 +22,7 @@ function Signup() {
          userPassword : Password,
          createdAt :Timestamp.now(),
          userType :"user"
-         }
+   }
  
 
   const signInHandler = async() => {

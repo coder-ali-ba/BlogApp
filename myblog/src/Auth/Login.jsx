@@ -1,22 +1,20 @@
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { app, auth, db } from '../firebase'
-import { Link, useNavigate } from 'react-router-dom';
+import { data, Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Bounce, toast } from 'react-toastify';
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, getDoc, doc } from "firebase/firestore";
 function Login() {
 
-    // const todashboard =useNavigate()
+    const todashboard =useNavigate()
 
     // console.log("firbase :" , app);
     const[logEmail , setLogEmail] = useState("")
     const[logPassword , setLogPassword] = useState("")
+    // const[isAdmin, setIsAdmin]=useState(false)
 
-    const logInHandler = async() => {
-
-      
-       
+    const logInHandler = async() => {     
          if(logEmail ==""  || logPassword ==""){
            toast.error('Please Fill All Fields', {
               position: "top-right",
@@ -35,7 +33,45 @@ function Login() {
      
       try {
         await signInWithEmailAndPassword(auth , logEmail , logPassword)
-        toast('User LogedIn Successfully', {
+      
+        const q = query(collection(db, "Users"), where("userPassword", "==", logPassword));
+        const querySnapshot = await getDocs(q);
+         if (querySnapshot.empty) {
+              toast.error('Please Fill All Fields', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+           });
+          return;
+        }
+         const userData = querySnapshot.docs[0].data();
+
+        if (userData.userType === "admin") {
+           todashboard("/admindashboard");
+         } else if (userData.userType === "user") {
+           todashboard("/userdashboard");
+         } else {
+               toast.error('User Not Found', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+           });
+         }
+  
+        
+       toast('User LogedIn Successfully', {
               position: "top-right",
               autoClose: 2000,
               hideProgressBar: false,
@@ -47,29 +83,14 @@ function Login() {
               transition: Bounce,
           });
 
+      // if(adminUsers[0].userPassword != logPassword){
+      //       todashboard("/userdashboard") 
+      //       return
+      // }
 
-        // todashboard("/admindashboard")
-
-
-        const querySnapshot = await getDocs(collection(db, "Users"));
-        querySnapshot.forEach((doc) => {
-               // doc.data() is never undefined for query doc snapshots
-              //  const loggedInUser =doc.data().userPassword === logPassword
-              //  console.log(loggedInUser);
-              
-              // const a = doc.data()
-              // console.log(a.userPassword === logPassword);
-              
-              // return a.userPassword === logPassword
-
-              const docRef = doc(db, "Users", user.uid);
-              const docSnap = await getDoc(docRef);
-       });
-      
-       
 
       } catch (error) {
-          toast.error('Invalid Email or Password', {
+          toast.error(`${error.message}`, {
               position: "top-right",
               autoClose: 2000,
               hideProgressBar: false,
