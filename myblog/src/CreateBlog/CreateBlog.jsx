@@ -10,12 +10,16 @@ function CreateBlog() {
   const [title , setTitle] = useState("")
   const [subject , setSubject] = useState('')
   const [desc, setDesc] = useState("")
+  const[status, setStatus]= useState("")
+
+
 
   const addBlogHandler = async() => {
     const addBlog = {
       title,
       subject,
-      description :desc
+      description :desc,
+      status
     }
     try {
       // console.log("title : " , title);
@@ -98,6 +102,13 @@ function CreateBlog() {
             setDesc(event.target.value)
           }}
         />
+
+         <Typography variant={'5'} fontWeight={"bold"} mt={"20px"}>Available Publicly or Private</Typography>
+        <TextField label="Public or Private" variant='filled'
+        onChange={(event)=>{
+          setStatus(event.target.value)
+        }}></TextField>
+
 
         <Button variant='contained' sx={{marginTop:"20px"}} onClick={addBlogHandler}>Add Blog</Button>
     </Stack>
