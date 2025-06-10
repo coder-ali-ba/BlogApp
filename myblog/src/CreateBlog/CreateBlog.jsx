@@ -19,7 +19,8 @@ function CreateBlog() {
       title,
       subject,
       description :desc,
-      status
+      status,
+      createdAt :Date.now()
     }
     try {
       // console.log("title : " , title);
