@@ -53,8 +53,30 @@ function Login() {
          const userData = querySnapshot.docs[0].data();
 
         if (userData.userType === "admin") {
+            toast('Admin LogedIn Successfully', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+          });
            todashboard("/admindashboard");
          } else if (userData.userType === "user") {
+            toast('User LogedIn Successfully', {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+          });
            todashboard("/userdashboard");
          } else {
                toast.error('User Not Found', {
@@ -71,17 +93,7 @@ function Login() {
          }
   
         
-       toast('User LogedIn Successfully', {
-              position: "top-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-          });
+     
 
       // if(adminUsers[0].userPassword != logPassword){
       //       todashboard("/userdashboard") 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
+import NavbarComp from '../components/NavbarComp';
 
 
 function MainDashboard() {
@@ -39,25 +40,7 @@ function MainDashboard() {
     <Stack >
       {/* <Button onClick={getAvailabeBlogs}>get</Button> */}
 
-      {/* NavBar */}
-      <Container className='w-100 flex justify-between mt-4 bg-gray-100 py-4 ' sx={{color:"black", }} >
-        <Box display={"flex"} gap={"5px"}>
-          <ImportContactsOutlinedIcon color='light'> </ImportContactsOutlinedIcon>
-          <Box component="h4" sx={{color:"black"}}>BlogApp</Box>
-        </Box>
-
-        <Box display={"flex"} gap={"10px"}>
-          <Link>Home</Link>
-          <Link>Trending</Link>
-          <Link>Most Popular</Link>
-          <Link>About</Link>
-        </Box>
-        
-        <Button variant="contained">
-           <Link to="/login"  >logIn</Link>
-        </Button>
-        
-      </Container>
+      <NavbarComp />
       
 
       <Container className='w-100   flex'>
@@ -66,7 +49,7 @@ function MainDashboard() {
           
           {publicBlogs ==[] ? <Typography color='black'>not Found</Typography> :
             publicBlogs.map((post , index)=>(
-              <Stack key={index}  px={"20px"} mt={"20px"}>
+              <Stack key={index}  px={"20px"} mt={"20px"} bgcolor={"light"}>
                 <Typography variant={"h5"} color='black'>Title : {post.title}</Typography>
                  <Typography variant='h6'>subject : {post.subject}</Typography>
                  <Typography>{post.description}</Typography>
