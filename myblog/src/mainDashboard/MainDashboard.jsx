@@ -12,7 +12,7 @@ function MainDashboard() {
      const [publicBlogs, setPublicBlogs] = useState([])   
 
      const getAvailabeBlogs = async() => {
-        const q = query(collection(db, "bolgs"), where("status", "==", "public"));
+        const q = query(collection(db, "bolgs"), where("status", "==", false));
         const querySnapshot = await getDocs(q);
 
         let blogs=[]
@@ -50,6 +50,7 @@ function MainDashboard() {
           {publicBlogs ==[] ? <Typography color='black'>not Found</Typography> :
             publicBlogs.map((post , index)=>(
               <Stack key={index}  px={"20px"} mt={"20px"} bgcolor={"light"}>
+                <img src={post.imageLink} alt="" />
                 <Typography variant={"h5"} color='black'>Title : {post.title}</Typography>
                  <Typography variant='h6'>subject : {post.subject}</Typography>
                  <Typography>{post.description}</Typography>
