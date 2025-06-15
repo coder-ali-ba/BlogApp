@@ -33,7 +33,10 @@ function MainDashboard() {
           getAvailabeBlogs()
        }, [])
      
-        console.log(publicBlogs);
+        const imageStyle = {
+          width:"30%",
+          height :"100%"
+        }
   return (
 
     
@@ -44,23 +47,26 @@ function MainDashboard() {
       
 
       <Container className='w-100   flex'>
+
+
         <Box  width={"20%"} ></Box>
+
+
         <Box  width={"80%"} sx={{ marginY:"20px"}} className='bg-gray-100'>
           
           {publicBlogs ==[] ? <Typography color='black'>not Found</Typography> :
             publicBlogs.map((post , index)=>(
-              <Stack key={index}  px={"20px"} mt={"20px"} bgcolor={"light"}>
-                <img src={post.imageLink} alt="" />
-                <Typography variant={"h5"} color='black'>Title : {post.title}</Typography>
-                 <Typography variant='h6'>subject : {post.subject}</Typography>
-                 <Typography>{post.description}</Typography>
-                 <Typography>{new Date(post.createdAt).getDate()}</Typography>
-              </Stack>
-               
-            ))
-          }
-          
+              <Stack key={index} flexDirection={"row"} gap={"10px"} alignItems={"center"}  mt={"20px"} bgcolor={"light"}>
 
+                <img src={post.imageLink} alt="" style={imageStyle} />  
+                <Box>
+                   <Typography variant={"h5"} color='black'>Title : {post.title}</Typography>        
+                   <Typography variant='h6'>subject : {post.subject}</Typography>
+                   <Typography>{post.description}</Typography>
+                   <Typography>{new Date(post.createdAt).getDate()}</Typography>
+                </Box>
+              </Stack>))
+           }
         </Box>
       </Container>
 
