@@ -15,6 +15,7 @@ function CreateBlog() {
   const [desc, setDesc] = useState("")
   const[status, setStatus]= useState(false)
   const [imageUrl, setImageUrl] = useState("")
+  
   const fileRef = useRef(null)
   
   const addImage = () => {
@@ -151,9 +152,7 @@ function CreateBlog() {
           
 
          <input type="file" hidden ref={fileRef} onChange={handleFileChange}/> 
-         <Typography
-          
-         >
+         <Typography>
           Add Picture 
           <AddIcon onClick={addImage}></AddIcon>
          </Typography>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NavbarComp from '../components/NavbarComp'
 import CreateBlog from '../CreateBlog/CreateBlog'
-import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Container, Stack, Typography } from '@mui/material'
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
@@ -31,7 +31,7 @@ function User() {
   
 
   return (
-    <div>
+    <Container>
       <NavbarComp />
 
       <Stack>
@@ -64,7 +64,7 @@ function User() {
           </Box>
       </Stack>
       
-    </div>
+    </Container>
   )
 }
 

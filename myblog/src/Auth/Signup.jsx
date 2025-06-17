@@ -1,17 +1,26 @@
 import { Button, CircularProgress, Stack, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { auth, db } from '../firebase.js'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { Bounce, toast } from 'react-toastify'
 import { doc, setDoc, Timestamp } from 'firebase/firestore'
+import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios'
+
+
+
+
+
 
 function Signup() {
   const [fullname, setFullName]= useState("")
   const [Email, setEmail]= useState("")
   const [Password, setPassword]= useState("")
   const [inProgress , setInProgress]=useState(false)
+  const [imageURL , setImageURL] = useState("")
 
+  const refFile = useRef(null)
   const navigate = useNavigate()
  
  
@@ -21,14 +30,44 @@ function Signup() {
          emailAddress :Email,
          userPassword : Password,
          createdAt :Timestamp.now(),
-         userType :"user"
+         userType :"user",
+         profilePic : imageURL
    }
  
 
+     const getFileInput = () => {
+      refFile.current.click()
+    }
+  
+   const getImageURL = async(event) => {
+    const myFile =event.target.files[0] 
+  
+         const formData = new FormData();
+
+    formData.append('file', myFile);
+    formData.append('upload_preset', 'firstpreset');
+
+    try {
+        const response = await axios.post(
+        'https://api.cloudinary.com/v1_1/dpqs4s6ed/image/upload', 
+        formData );
+        
+         setImageURL(response.data.secure_url)
+         console.log(response.data.secure_url);
+         
+         
+    } catch (error) {
+      console.log(error.message);
+    }
+    
+   }
+
+
+
+
+
   const signInHandler = async() => {
  
-
-
    setInProgress(true)
     try {
       if(fullname =="" || Email =="" || Password ==""){
@@ -84,10 +123,12 @@ function Signup() {
 
       setInProgress(false)
 
-    }
-    
+    }   
    }
-  
+
+
+
+
   return (
     
     <Stack gap={"50px"} maxWidth={"450px"} margin={"auto"} padding={"30px"}>
@@ -113,7 +154,13 @@ function Signup() {
       }}>
       </TextField>
 
-
+      
+      <input type="file" hidden ref={refFile}  onChange={getImageURL}/>
+      <Typography>
+          Add Profile Picture 
+          <AddIcon onClick={getFileInput}></AddIcon>
+         </Typography>
+    
 
       <Typography>Already have an account 
         <Link className='text-blue-400' to="/"> LogIn</Link>
