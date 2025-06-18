@@ -4,11 +4,15 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+
 
 function Admin() {
    const [getForAdmin, setGetForAdmin]= useState([])
+   const [profilePicture , setProfilePicture] = useState("")
+
   const getblogs = async() => {
     
     let allBlogArray =[]
@@ -20,27 +24,86 @@ function Admin() {
     setGetForAdmin(allBlogArray)
 
   }
-
   useEffect(()=>{
     getblogs()
   }, [])
  
+
+
+
+  const getAdmin = async() => {
+  const responses = query(collection(db, "Users"), where("userType", "==", "admin"));
+  const res =  await getDocs(responses)
+  const picLink = res.docs[0].data()
   
+  setProfilePicture(picLink)
+  
+  }
+  useEffect(()=>{
+    getAdmin()
+  }, [])
+  
+
+
+const[allUser, setAllUser]= useState([])
+
+const getAllUsers = async() => {
+  let allUsers =[]
+  try {
+    const users = await getDocs(collection(db , "Users"));
+    users.forEach((user)=>{
+    // console.log(user.data()); 
+    allUsers.push(user.data())  
+  })
+
+  setAllUser(allUsers)
+  
+  } catch (error) {
+    console.log(error.message);
+    
+  }  
+}
+
+useEffect(()=>{
+  getAllUsers()
+} , [])
+
+
+
+
 
   return (
     <Stack>
         <Stack bgcolor={"gray"}  flexDirection={"row"} justifyContent={"space-between"} mx={"10%"} mt={"10px"} borderRadius={"10px"} px={"5px"} py={"5px"} alignItems={"center"}>
-           <Typography variant='h4' color='white'>Welcome To Admin</Typography>
+           <Stack flexDirection={"row"} alignItems={"center"} gap={"10px"}>
+              <img style={{width:"60px" , height:"60px", borderRadius:"50%"}} src={profilePicture.profilePic} alt="" />
+              <Typography variant='h4' color='white'>
+                {profilePicture.name}
+              </Typography>
+           </Stack>
            <Stack gap={"40px"} flexDirection={"row"}>
              <Link to="/createblog"><AddIcon fontSize='large' sx={{color:"white"}}></AddIcon>Create Blog</ Link>
              <NotificationsIcon sx={{color:"white"}} fontSize='large'></NotificationsIcon>
-             <AccountCircleIcon sx={{color:"white"}} fontSize='large'></AccountCircleIcon>
+             {/* <AccountCircleIcon sx={{color:"white"}} fontSize='large'>Follow</AccountCircleIcon> */}
            </Stack>
         </Stack>
 
         <Stack flexDirection={"row"} border={"2px solid green"} borderRadius={"15px"} mt={"40px"} mx={"10%"}>
 
-          <Box bgcolor={"gray"} sx={{borderTopLeftRadius:"15px", borderBottomLeftRadius:"15px"}} width={"25%"} paddingBottom={"20px"} >uigiuh</Box>
+          <Box  sx={{borderTopLeftRadius:"15px", borderBottomLeftRadius:"15px"}} width={"25%"} paddingBottom={"20px"} >
+            <Typography width={"100%"} textAlign={"center"} variant='h6'> All Users</Typography>
+            {allUser.length == 0 ? (<CircularProgress  color='Blue'></CircularProgress>) : (
+              allUser.map((user , index)=>(
+                <Stack key={index} flexDirection={"row"} alignItems={"center"} mt={"10px"} ml={"10px"}>          
+                  <img style={{width:"50px", height:"50px", borderRadius:"50%"}} src={user.profilePic} alt="" />
+                  <Typography>{user.name}</Typography>
+                </Stack>
+              ))
+            )
+            }
+          </Box>
+
+
           <Box px={"20px"}  paddingBottom={"20px"}>
           {getForAdmin.length == 0 ?
            (<CircularProgress  color='Blue'></CircularProgress>) :
