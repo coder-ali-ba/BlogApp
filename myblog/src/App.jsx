@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import { Link, Route, Routes } from 'react-router-dom'
 import Login from './Auth/Login'
@@ -8,10 +7,15 @@ import Admin from './AdminDAshboard/Admin'
 import User from './UserDashboard/User'
 import CreateBlog from './CreateBlog/CreateBlog'
 import MainDashboard from './mainDashboard/MainDashboard'
+import UserAccount from './components/UserAccount'
+import SingleBlog from './components/SingleBlog'
+
 
 
 function App() {
 
+
+  
 
   return (
     
@@ -40,6 +44,8 @@ function App() {
         <Route path='/admindashboard' element={<Admin />}></Route>
         <Route path='/createblog' element={<CreateBlog/>}></Route>
         <Route path='/userdashboard' element={<User />}></Route>
+        <Route path='/useraccount' element={<UserAccount />}></Route>
+        <Route path='/singleblog' element={<SingleBlog />}></Route>
       </Routes>
     </>
   )

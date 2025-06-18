@@ -6,12 +6,13 @@ import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, query, where, getDocs } from "firebase/firestore";
+import UserAccount from '../components/UserAccount';
 
 
 
 function Admin() {
-   const [getForAdmin, setGetForAdmin]= useState([])
-   const [profilePicture , setProfilePicture] = useState("")
+  const [getForAdmin, setGetForAdmin]= useState([])
+  const [profilePicture , setProfilePicture] = useState("")
 
   const getblogs = async() => {
     
@@ -20,9 +21,7 @@ function Admin() {
     querySnapshot.forEach((blog) => {
       allBlogArray.push(blog.data())     
     });
-    
     setGetForAdmin(allBlogArray)
-
   }
   useEffect(()=>{
     getblogs()
@@ -96,7 +95,9 @@ useEffect(()=>{
               allUser.map((user , index)=>(
                 <Stack key={index} flexDirection={"row"} alignItems={"center"} mt={"10px"} ml={"10px"}>          
                   <img style={{width:"50px", height:"50px", borderRadius:"50%"}} src={user.profilePic} alt="" />
-                  <Typography>{user.name}</Typography>
+                  {/* <Typography>{user.name}</Typography> */}
+                  <Link to="/useraccount" state={{ userId: user.userPassword }}>{user.name}</Link>
+                  
                 </Stack>
               ))
             )
@@ -104,11 +105,11 @@ useEffect(()=>{
           </Box>
 
 
-          <Box px={"20px"}  paddingBottom={"20px"}>
+          <Box px={"20px"}  paddingBottom={"20px"}  >
           {getForAdmin.length == 0 ?
            (<CircularProgress  color='Blue'></CircularProgress>) :
             ( getForAdmin.map((blog , index)=>(
-              <Stack flexDirection={"row"} gap={"10px"} key={index} mt={"20px"} width={"100%"} bgcolor={"lightGray"} padding={"10px"} borderRadius={"10px"}>
+              <Stack component={Link} to="/singleblog" state={{blogId : blog.createdAt}} flexDirection={"row"} gap={"10px"} key={index} mt={"20px"} width={"100%"} bgcolor={"lightGray"} padding={"10px"} borderRadius={"10px"}>
                 <img src={blog.imageLink} className='w-50 rounded-lg'  alt="" />
                 <Box>
                   <Typography variant='h4'>{blog.title}</Typography>
