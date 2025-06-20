@@ -110,7 +110,7 @@ useEffect(()=>{
            (<CircularProgress  color='Blue'></CircularProgress>) :
             ( getForAdmin.map((blog , index)=>(
               <Stack component={Link} to="/singleblog" state={{blogId : blog.createdAt}} flexDirection={"row"} gap={"10px"} key={index} mt={"20px"} width={"100%"} bgcolor={"lightGray"} padding={"10px"} borderRadius={"10px"}>
-                <img src={blog.imageLink} className='w-50 rounded-lg'  alt="" />
+                <img src={blog.imageLink || null} className='w-50 rounded-lg'  alt="" />
                 <Box>
                   <Typography variant='h4'>{blog.title}</Typography>
                   <Typography variant='h6'>{blog.subject}</Typography>

@@ -32,8 +32,11 @@ function Login() {
       }  
      
       try {
-        await signInWithEmailAndPassword(auth , logEmail , logPassword)
-      
+       const userCredential = await signInWithEmailAndPassword(auth , logEmail , logPassword)
+       const user = userCredential.user;
+       console.log("user UID" , user.uid);
+       localStorage.setItem("user" , JSON.stringify(user.uid))
+
         const q = query(collection(db, "Users"), where("userPassword", "==", logPassword));
         const querySnapshot = await getDocs(q);
          if (querySnapshot.empty) {
@@ -78,6 +81,8 @@ function Login() {
               transition: Bounce,
           });
            todashboard("/userdashboard");
+
+          
          } else {
                toast.error('User Not Found', {
               position: "top-right",

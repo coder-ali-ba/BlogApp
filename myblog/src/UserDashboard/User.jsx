@@ -35,8 +35,13 @@ function User() {
       <NavbarComp />
 
       <Stack>
+
        <Button variant='contained' sx={{margin:"auto", marginTop:"20px"}} >
-        <Link to="/CreateBlog">Add Blog</Link>
+        <Link to="/CreateBlog">Add Blog</Link>       
+       </Button>
+
+        <Button variant='contained' sx={{margin:"auto", marginTop:"20px"}} >
+         <Link to='/logout'>Log Out</Link>    
        </Button>
       </Stack>
 
@@ -51,7 +56,7 @@ function User() {
                allBlogs.map((blog , index)=>(
 
                <Box key={index} mt={"20px"} className='rounded-lg mx-2' bgcolor={"gray"}  display={"flex"} flexDirection={"row"} gap={"10px"} alignItems={"center"} >
-                  <img src={blog.imageLink}  className='w-50 rounded-lg' alt="" />
+                  <img src={blog.imageLink || null}  className='w-50 rounded-lg' alt="not provided" />
                  <Box>
                    <Typography variant='h4'>Title : {blog.title}</Typography>
                    <Typography variant='h6'>subject : {blog.subject}</Typography>

@@ -25,14 +25,7 @@ function Signup() {
  
  
  
-  const userObj ={
-         name : fullname,
-         emailAddress :Email,
-         userPassword : Password,
-         createdAt :Timestamp.now(),
-         userType :"user",
-         profilePic : imageURL
-   }
+ 
  
 
      const getFileInput = () => {
@@ -87,6 +80,16 @@ function Signup() {
       }   
      const userCredential = await createUserWithEmailAndPassword(auth , Email , Password) 
      const uid =userCredential.user.uid
+
+      const userObj ={
+         name : fullname,
+         emailAddress :Email,
+         userPassword : Password,
+         createdAt :Timestamp.now(),
+         userType :"user",
+         profilePic : imageURL,
+         userUId : uid
+   }
     setInProgress(false)
 
        toast('Successfully signed in', {

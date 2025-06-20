@@ -10,6 +10,10 @@ import axios from 'axios';
 
 
 function CreateBlog() {
+
+
+   const Uid = JSON.parse(localStorage.getItem("user"))
+
   const [title , setTitle] = useState("")
   const [subject , setSubject] = useState('')
   const [desc, setDesc] = useState("")
@@ -52,7 +56,8 @@ function CreateBlog() {
       description :desc,
       status : status,
       createdAt :Date.now(),
-      imageLink :imageUrl
+      imageLink :imageUrl,
+      UserId:Uid
     }
     try {
      

@@ -1,10 +1,13 @@
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
-import { CircularProgress, Stack, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material'
+
 
 function UserAccount() {
+  const navigate = useNavigate()
+
    const location =useLocation()
    const userPassword = location.state?.userId
 
@@ -35,6 +38,27 @@ function UserAccount() {
 const a= allUser.find((user)=>{
     return user.userPassword == userPassword
 })
+
+
+
+
+
+
+const delAccount = async () => {
+  try {
+    await deleteDoc(doc(db, "Users", a.userUId)); 
+    console.log("Document deleted successfully!");
+    navigate("/admindashboard")
+  } catch (error) {
+    console.error("Error deleting document:", error);
+    
+  }
+
+
+}
+
+
+
  
   return (
   
@@ -42,10 +66,13 @@ const a= allUser.find((user)=>{
        {!a ? (<CircularProgress  color='Blue'></CircularProgress>) : (
            <Stack className='bg-blue-400 m-auto text-center' padding={"40px"} borderRadius={"10px"} mt={"30px"}>
             <Typography variant='h4' >Account Name : {a.name}</Typography>
-            <img style={{borderRadius:"50%", margin:'auto'}}  className='w-75 h-75'  src={a.profilePic} alt="#" />
-            <Typography>Email Address : {a.emailAddress}</Typography>
-            {/* <Typography>Craeted At : {a.createdAt}</Typography> */}
+            <img style={{borderRadius:"50%", margin:'auto'}}  className='w-75 h-75'  src={a.profilePic || null} alt="#" />
+            <Typography>Email Address : {a.emailAddress}</Typography>    
             <Typography>User Type : {a.userType}</Typography>
+            <Typography>User Type : {a.userUId}</Typography>
+            <Box>
+              <Button onClick={delAccount} sx={{backgroundColor:"red", mt:"20px"}} variant="contained">Delete Account</Button>
+            </Box>
            </Stack>
        ) }     
     </Stack>

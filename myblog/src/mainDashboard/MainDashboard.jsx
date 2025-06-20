@@ -58,7 +58,7 @@ function MainDashboard() {
             publicBlogs.map((post , index)=>(
               <Stack key={index} flexDirection={"row"} gap={"10px"} alignItems={"center"}  mt={"20px"} bgcolor={"light"}>
 
-                <img src={post.imageLink} alt="" style={imageStyle} />  
+                <img src={post.imageLink || null} alt="not provided" style={imageStyle} />  
                 <Box>
                    <Typography variant={"h5"} color='black'>Title : {post.title}</Typography>        
                    <Typography variant='h6'>subject : {post.subject}</Typography>

@@ -37,7 +37,6 @@ function SingleBlog() {
   return (
    <Stack>
     {!matchId ? (<CircularProgress color='Blue'></CircularProgress>) : (<h1>{matchId.title}</h1>)
-
     }
    </Stack>
   )
