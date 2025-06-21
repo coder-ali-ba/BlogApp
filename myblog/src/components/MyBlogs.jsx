@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react'
 import { db } from '../firebase';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Checkbox, CircularProgress, FormControlLabel, Stack, TextField, Typography } from '@mui/material';
@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 
 function MyBlogs() {
-
+  const Uid = JSON.parse(localStorage.getItem("user"))
   const [myBlogs , setMyBlogs] = useState(null)
   const userUid = JSON.parse(localStorage.getItem("user"))
   const [visible , setVisible] = useState(false)
@@ -66,14 +66,14 @@ function MyBlogs() {
   const deleteBlog = async(a) => {
     setMyBlogs(null)   
     try {     
-    
+
       const q = query(collection(db , "bolgs") , where("createdAt" , "==" , Number(a)))
       const querySnapshot =await getDocs(q)
      
       querySnapshot.forEach((bl)=>{  
          deleteDoc(doc(db, "bolgs", bl.id)); 
-         console.log(bl.data());
       })
+
       getMyBlogs()
     } catch (error) {
       console.log(error.message);     
@@ -81,26 +81,41 @@ function MyBlogs() {
   }
 
 
-  const editMyBlog = () => {
+  const editMyBlog = (bid) => {
+    setBlogId(bid)
     setVisible(true)   
   }
 
-  const updateBlog = () => {
+  const updateBlog = async() => {
    const updatedBlog = {
-    title,
+      title,
       subject,
       description :desc,
       status : status,
       createdAt :Date.now(),
       imageLink :imageUrl,
-      // UserId:Uid,
-      //  blogId
+      UserId:Uid,
+     
    }
+   try {
+    
+
+     const up = await updateDoc(doc(db , "bolgs" , blogId ) , updatedBlog )
+     console.log(up);
+     console.log(blogId);
+    
+   } catch (error) {
+    console.log(error.message);
+    
+   }
+
 
    
 
-
-   console.log(updatedBlog);
+   
+   
+   
+   
    
 
   }
@@ -132,13 +147,18 @@ function MyBlogs() {
                    </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color='white' sx={{backgroundColor:"green"}} onClick={editMyBlog}>Edit</Button>
+                <Button size="small" id={blog.createdAt} color='white' sx={{backgroundColor:"green"}} onClick=
+                {(event)=>{
+                  editMyBlog(event.target.id)
+                }}>Edit</Button>
                 <Button size="small" id={blog.createdAt} color='white'sx={{backgroundColor:"red"}} onClick={(event)=>{deleteBlog(event.target.id)}}>Delete</Button>
              </CardActions>
           </Card>
        </Stack>   
        ))
      } 
+
+
 
     {visible && <Stack width={"300px"} height={"400px"} backgroundColor={"yellow"}>
 
@@ -167,7 +187,7 @@ function MyBlogs() {
           <AddIcon onClick={addImage}></AddIcon>
          </Typography>
 
-       <Button variant='contained' onClick={updateBlog}>Update Blog</Button>
+       <Button variant='contained'  onClick={updateBlog}>Update Blog</Button>
 
      </Stack> 
     }
