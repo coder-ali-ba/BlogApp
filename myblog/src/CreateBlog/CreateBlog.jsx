@@ -19,6 +19,7 @@ function CreateBlog() {
   const [desc, setDesc] = useState("")
   const[status, setStatus]= useState(false)
   const [imageUrl, setImageUrl] = useState("")
+  const [blogId , setBlogId] =useState("")
   
   const fileRef = useRef(null)
   
@@ -50,17 +51,18 @@ function CreateBlog() {
 
 
   const addBlogHandler = async() => {
-    const addBlog = {
+   
+    try {
+      const addBlog = {
       title,
       subject,
       description :desc,
       status : status,
       createdAt :Date.now(),
       imageLink :imageUrl,
-      UserId:Uid
+      UserId:Uid,
+       blogId
     }
-    try {
-     
      
 
 
@@ -85,7 +87,8 @@ function CreateBlog() {
      
      const docRef = await addDoc(collection(db, "bolgs"),addBlog)
      console.log(docRef);
-
+     setBlogId(docRef.id)
+      
       toast('Successfully created your blog', {
               position: "top-right",
               autoClose: 2000,

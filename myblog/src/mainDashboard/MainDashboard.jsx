@@ -1,6 +1,6 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
@@ -8,6 +8,18 @@ import NavbarComp from '../components/NavbarComp';
 
 
 function MainDashboard() {
+  const navigate = useNavigate()
+    const a = Boolean(localStorage.getItem("type"))
+    const ifAdmin =() =>{
+       if(a){
+       navigate("/admindashboard")
+       }
+       return
+    }
+
+    useEffect(()=>{
+      ifAdmin()
+    }, [])
 
      const [publicBlogs, setPublicBlogs] = useState([])   
 

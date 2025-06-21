@@ -67,6 +67,7 @@ function Login() {
               theme: "light",
               transition: Bounce,
           });
+          localStorage.setItem("type" , "Admin")
            todashboard("/admindashboard");
          } else if (userData.userType === "user") {
             toast('User LogedIn Successfully', {

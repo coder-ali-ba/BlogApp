@@ -34,15 +34,10 @@ function User() {
     <Container>
       <NavbarComp />
 
-      <Stack>
-
-       <Button variant='contained' sx={{margin:"auto", marginTop:"20px"}} >
-        <Link to="/CreateBlog">Add Blog</Link>       
-       </Button>
-
+      <Stack flexDirection={"row"}>
         <Button variant='contained' sx={{margin:"auto", marginTop:"20px"}} >
-         <Link to='/logout'>Log Out</Link>    
-       </Button>
+          <Link to='/logout'>Log Out</Link>    
+        </Button>
       </Stack>
 
 
