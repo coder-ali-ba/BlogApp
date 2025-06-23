@@ -1,9 +1,11 @@
 import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react'
 import { db } from '../firebase';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Checkbox, CircularProgress, FormControlLabel, Stack, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Card, CardActions, CardContent, CardMedia, Checkbox, CircularProgress, FormControlLabel, Stack, TextField, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import CheckIcon from '@mui/icons-material/Check';
 import axios from 'axios';
+import { grey } from '@mui/material/colors';
 
 function MyBlogs() {
   const Uid = JSON.parse(localStorage.getItem("user"))
@@ -16,6 +18,7 @@ function MyBlogs() {
   const[status, setStatus]= useState(false)
   const [imageUrl, setImageUrl] = useState("")
   const [blogId , setBlogId] =useState("")
+  // const [showSuccess , setShowSuccess] = useState(false)
 
   const fileRef = useRef(null)
 
@@ -84,9 +87,14 @@ function MyBlogs() {
   const editMyBlog = (bid) => {
     setBlogId(bid)
     setVisible(true)   
+    setMyBlogs(null) 
+   
+
   }
 
-  const updateBlog = async() => {
+
+
+
    const updatedBlog = {
       title,
       subject,
@@ -97,27 +105,34 @@ function MyBlogs() {
       UserId:Uid,
      
    }
-   try {
-    
 
-     const up = await updateDoc(doc(db , "bolgs" , blogId ) , updatedBlog )
-     console.log(up);
-     console.log(blogId);
+
+  
+
+  const updateBlog = async() => {
+ 
+   try {
+
+   const choose = query(collection(db , "bolgs") , where("createdAt" , "==" , Number(blogId)))
+   const b = await getDocs(choose)  
+
+   b.forEach((ele)=>{
+     updateDoc(doc(db , "bolgs" , ele.id ) , updatedBlog )
+   })
+
+  
+
+  getMyBlogs()
+
+  setVisible(false)
+  
+
     
    } catch (error) {
     console.log(error.message);
     
-   }
-
-
-   
-
-   
-   
-   
-   
-   
-
+   }  
+  
   }
 
 
@@ -125,15 +140,19 @@ function MyBlogs() {
 
   return (
     <Stack flexDirection={"row"} flexWrap={"wrap"} gap={"20px"} padding={"30px"} justifyContent={"center"}>
+      
+      {/* {
+        showSuccess &&  <Alert severity="warning">This is a success Alert.</Alert>
+      } */}
    
      {!myBlogs ?(<CircularProgress />) : myBlogs.map((blog , index)=>(
         <Stack key={index}>
-           <Card sx={{ maxWidth: 345 }}>
+           <Card sx={{ width: 345,  height:450}} >
              <CardMedia
                component="img"
                alt="green iguana"
-               height="140"
                image={blog.imageLink}
+               sx={{height:250}}
               />
                <CardContent>
                    <Typography gutterBottom variant="h5" component="div">
@@ -160,9 +179,11 @@ function MyBlogs() {
 
 
 
-    {visible && <Stack width={"300px"} height={"400px"} backgroundColor={"yellow"}>
+    {visible && <Stack width={400} height={500} borderRadius={"10px"} backgroundColor={"grey"} padding={"20px"} gap={"20px"} >
 
-       <TextField label="Title" variant="outlined" onChange={(event)=>{
+      <Typography textAlign={"center"} variant='h5'>Update Blog</Typography>
+
+       <TextField label="Title" variant="outlined" sx={{color:"white"}} onChange={(event)=>{
         setTitle(event.target.value)
        }} />
 

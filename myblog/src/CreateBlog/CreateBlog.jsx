@@ -122,6 +122,7 @@ function CreateBlog() {
 
   return (
     <Stack width={"450px"} sx={{margin:"auto", textAlign:"center"}}>
+      
 
         <Typography variant={'h4'}>Create Blog</Typography>
 
