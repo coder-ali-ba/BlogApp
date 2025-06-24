@@ -44,14 +44,14 @@ function User() {
 
       <Stack mt={"20px"} flexDirection={"row"}>
         
-          <Box width={"25%"} sx={{backgroundColor:"yellow"}} ></Box>
+         
 
-          <Box>
+          <Box  display={"flex"} flexDirection={"row"} gap={"10px"} alignItems={"center"} flexWrap={"wrap"} >
                { allBlogs.length == 0 ?( <Box width={"100%"} textAlign={"center"}><CircularProgress color='blue'></CircularProgress></Box>)  :
                allBlogs.map((blog , index)=>(
 
-               <Box key={index} mt={"20px"} className='rounded-lg mx-2' bgcolor={"gray"}  display={"flex"} flexDirection={"row"} gap={"10px"} alignItems={"center"} >
-                  <img src={blog.imageLink || null}  className='w-50 rounded-lg' alt="not provided" />
+               <Box key={index} mt={"20px"} width={"340px"} height={"400px"} className='rounded-lg mx-2' bgcolor={"gray"}  >
+                  <img src={blog.imageLink || null} sx={{height:"50%", width:"1005"}}  alt="not provided" />
                  <Box>
                    <Typography variant='h4'>Title : {blog.title}</Typography>
                    <Typography variant='h6'>subject : {blog.subject}</Typography>

@@ -77,11 +77,11 @@ useEffect(()=>{
            <Stack flexDirection={"row"} alignItems={"center"} gap={"10px"}>
               <img style={{width:"60px" , height:"60px", borderRadius:"50%"}} src={profilePicture.profilePic} alt="" />
               <Typography variant='h4' color='white'>
-                {profilePicture.name}
+               Admin  {profilePicture.name}
               </Typography>
            </Stack>
            <Stack gap={"40px"} flexDirection={"row"}>
-             <Link to="/createblog"><AddIcon fontSize='large' sx={{color:"white"}}></AddIcon>Create Blog</ Link>
+             
              <NotificationsIcon sx={{color:"white"}} fontSize='large'></NotificationsIcon>
              {/* <AccountCircleIcon sx={{color:"white"}} fontSize='large'>Follow</AccountCircleIcon> */}
            </Stack>

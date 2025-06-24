@@ -13,6 +13,7 @@ import PublicRoutes from './components/PublicRoutes'
 import PrivateRoutes from './components/PrivateRoutes'
 import MyBlogs from './components/MyBlogs'
 import LogOut from './components/LogOut'
+import AdminRoute from './AdminDAshboard/AdminRoute'
 
 
 
@@ -52,12 +53,16 @@ function App() {
        <Route element={<PrivateRoutes />}>          
            <Route path='/createblog' element={<CreateBlog/>}></Route>
            <Route path='/userdashboard' element={<User />}></Route>
-           <Route path='/useraccount' element={<UserAccount />}></Route>
-           <Route path='/singleblog' element={<SingleBlog />}></Route>
+           
            <Route path='/myblogs' element={<MyBlogs />}></Route>
        </Route>
        
-       <Route path='/admindashboard' element={<Admin />}></Route>
+
+       <Route element={<AdminRoute />}>
+           <Route path='/admindashboard' element={<Admin />}></Route>
+           <Route path='/useraccount' element={<UserAccount />}></Route>
+           <Route path='/singleblog' element={<SingleBlog />}></Route>
+       </Route>
        <Route path='/logout' element={<LogOut />}></Route>
         
 

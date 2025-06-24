@@ -46,8 +46,9 @@ function MainDashboard() {
        }, [])
      
         const imageStyle = {
-          width:"30%",
-          height :"100%"
+          width:"100%",
+          height :"70%",
+          borderRadius:"10px"
         }
   return (
 
@@ -58,20 +59,20 @@ function MainDashboard() {
       <NavbarComp />
       
 
-      <Container className='w-100   flex'>
+      {/* <Container className='w-100   flex'> */}
 
 
-        <Box  width={"20%"} ></Box>
+        
 
 
-        <Box  width={"80%"} sx={{ marginY:"20px"}} className='bg-gray-100'>
+        <Box   sx={{ marginY:"20px",marginX:"75px", display:"flex", flexWrap:"wrap", gap:"30px", justifyContent:"center"}} className='bg-gray-100 '>
           
           {publicBlogs ==[] ? <Typography color='black'>not Found</Typography> :
             publicBlogs.map((post , index)=>(
-              <Stack key={index} flexDirection={"row"} gap={"10px"} alignItems={"center"}  mt={"20px"} bgcolor={"light"}>
+              <Stack key={index} gap={"10px"}  width={"340px"} borderRadius={"10px"}  mt={"20px"} bgcolor={"black"} color={"white"}>
 
-                <img src={post.imageLink || null} alt="not provided" style={imageStyle} />  
-                <Box>
+                <img src={post.imageLink || null}  alt="not provided" style={imageStyle} />  
+                <Box paddingLeft={"10px"}>
                    <Typography variant={"h5"} color='black'>Title : {post.title}</Typography>        
                    <Typography variant='h6'>subject : {post.subject}</Typography>
                    <Typography>{post.description}</Typography>
@@ -80,7 +81,7 @@ function MainDashboard() {
               </Stack>))
            }
         </Box>
-      </Container>
+      {/* </Container> */}
 
         
     </Stack>
