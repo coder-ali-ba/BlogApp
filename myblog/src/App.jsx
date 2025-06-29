@@ -52,8 +52,7 @@ function App() {
 
        <Route element={<PrivateRoutes />}>          
            <Route path='/createblog' element={<CreateBlog/>}></Route>
-           <Route path='/userdashboard' element={<User />}></Route>
-           
+           <Route path='/userdashboard' element={<User />}></Route>          
            <Route path='/myblogs' element={<MyBlogs />}></Route>
        </Route>
        
@@ -63,6 +62,8 @@ function App() {
            <Route path='/useraccount' element={<UserAccount />}></Route>
            <Route path='/singleblog' element={<SingleBlog />}></Route>
        </Route>
+
+       
        <Route path='/logout' element={<LogOut />}></Route>
         
 

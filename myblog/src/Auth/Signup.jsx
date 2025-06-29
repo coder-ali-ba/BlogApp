@@ -88,7 +88,8 @@ function Signup() {
          createdAt :Timestamp.now(),
          userType :"user",
          profilePic : imageURL,
-         userUId : uid
+         userUId : uid ,
+         isActive : true
    }
     setInProgress(false)
 

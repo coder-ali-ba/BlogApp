@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet, Navigate } from 'react-router-dom'
 
+
 function PrivateRoutes() {
     const UID =Boolean(localStorage.getItem("user"))
     const USER = Boolean(localStorage.getItem("type"))
