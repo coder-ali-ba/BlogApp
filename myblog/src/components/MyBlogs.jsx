@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import axios from 'axios';
 import { grey } from '@mui/material/colors';
+import NavbarComp from './NavbarComp';
 
 function MyBlogs() {
   const Uid = JSON.parse(localStorage.getItem("user"))
@@ -141,13 +142,11 @@ function MyBlogs() {
   return (
     <Stack flexDirection={"row"} flexWrap={"wrap"} gap={"20px"} padding={"30px"} justifyContent={"center"}>
       
-      {/* {
-        showSuccess &&  <Alert severity="warning">This is a success Alert.</Alert>
-      } */}
+     <NavbarComp/>
    
-     {!myBlogs ?(<CircularProgress />) : myBlogs.map((blog , index)=>(
+     {!myBlogs ?(<Typography>You have Not Published any Blog Yet</Typography>) : myBlogs.map((blog , index)=>(
         <Stack key={index}>
-           <Card sx={{ width: 345,  height:450}} >
+           <Card sx={{ width: 345, height:700}} >
              <CardMedia
                component="img"
                alt="green iguana"
@@ -155,10 +154,10 @@ function MyBlogs() {
                sx={{height:250}}
               />
                <CardContent>
-                   <Typography gutterBottom variant="h5" component="div">
+                   <Typography gutterBottom variant="h5" sx={{color:"black"}}>
                      {blog.title}
                    </Typography>
-                   <Typography gutterBottom variant="h5" component="div">
+                   <Typography gutterBottom variant="h6" >
                      {blog.subject}
                    </Typography>
                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>

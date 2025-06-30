@@ -5,6 +5,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from '../firebase';
 import { Bounce, toast } from 'react-toastify';
 import axios from 'axios';
+import NavbarComp from '../components/NavbarComp';
 
 
 
@@ -121,6 +122,9 @@ function CreateBlog() {
 
 
   return (
+
+    <>
+    <NavbarComp /> 
     <Stack width={"450px"} sx={{margin:"auto", textAlign:"center"}}>
       
 
@@ -169,6 +173,8 @@ function CreateBlog() {
 
         <Button variant='contained' sx={{marginTop:"20px"}} onClick={addBlogHandler}>Add Blog</Button>
     </Stack>
+
+    </>
   )
 }
 

@@ -81,10 +81,10 @@ const toggleActive = async() => {
             <img style={{borderRadius:"50%", margin:'auto'}}  className='w-75 h-75'  src={a.profilePic || null} alt="#" />
             <Typography>Email Address : {a.emailAddress}</Typography>    
             <Typography>User Type : {a.userType}</Typography>
-            <Typography>User Type : {a.userUId}</Typography>
+            
             <Box display={'flex'} flexDirection={"row"} justifyContent={"space-around"}>
               <Button onClick={delAccount} sx={{backgroundColor:"red", mt:"20px"}} variant="contained">Delete Account</Button>
-              <Button onClick={toggleActive} sx={{backgroundColor:"Warning", mt:"20px"}} variant="contained">{inActive ? "Active" : "InActive"}</Button>
+              <Button onClick={toggleActive} sx={{backgroundColor:"Warning", mt:"20px"}} variant="contained">{inActive ? "InActive" : "Active"}</Button>
             </Box>
            </Stack>
        ) }     

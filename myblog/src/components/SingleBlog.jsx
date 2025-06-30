@@ -72,12 +72,12 @@ function SingleBlog() {
   return (
    <Stack  >
     {!matchId ? (<CircularProgress color='Blue'></CircularProgress>) : (
-      <Stack flexDirection={"row"} gap={"30px"} width={"500px"} margin={"auto"}  justifyContent={"center"} className='flex flex-wrap md:flex-nowrap p-2 md:p-8' sx={{backgroundColor:"whitesmoke", boxShadow:"2px 2px  lightgray", borderRadius:"10px", marginTop:"30px"}  }>
-        <Stack>
+      <Stack flexDirection={"row"} gap={"30px"} width={"800px"} margin={"auto"}  justifyContent={"center"} className='flex flex-wrap md:flex-nowrap p-2 md:p-8' sx={{backgroundColor:"whitesmoke", boxShadow:"2px 2px  lightgray", borderRadius:"10px", marginTop:"30px"}  }>
+        <Stack width={"300px"}>
           <img src={matchId.imageLink} alt="not Published PC" style={{borderRadius:"10px"}} />
         </Stack>
 
-        <Stack gap={"20px"}>        
+        <Stack gap={"20px"} width={"500px"}>        
           <Typography variant='h4' >{matchId.title}</Typography>
           <Typography variant='h6' >{matchId.subject}</Typography>
           <Typography  >{matchId.description}</Typography>

@@ -90,13 +90,13 @@ useEffect(()=>{
 
         <Stack flexDirection={"row"}  borderRadius={"5px"} mt={"10px"} mx={"10%"} bgcolor={"darkGray"}>
 
-          <Box className=""  sx={{borderTopLeftRadius:"15px", borderBottomLeftRadius:"15px"}} width={"25%"} paddingBottom={"20px"} >
+          <Box className=""  sx={{borderTopLeftRadius:"15px", borderBottomLeftRadius:"15px"}} width={"40%"} paddingBottom={"20px"} >
             <Typography width={"100%"} textAlign={"center"} mt={"20px"} color='white' variant='h5'> All Users</Typography>
             {allUser.length == 0 ? (<CircularProgress  color='Blue'></CircularProgress>) : (
               allUser.map((user , index)=>(
                 <Stack key={index} flexDirection={"row"} padding={"2px"} borderRadius={"5px"} alignItems={"center"} mt={"10px"} ml={"10px"} bgcolor={"white"}>          
                   <img style={{width:"50px", height:"50px", borderRadius:"50%"}} src={user.profilePic} alt="" />
-                  {/* <Typography>{user.name}</Typography> */}
+                  
                   <Link to="/useraccount" state={{ userId: user.userPassword }} sx={{fontSize:"xl"}}> {user.name}</Link>
                   
                 </Stack>
@@ -106,11 +106,11 @@ useEffect(()=>{
           </Box>
 
 
-          <Box px={"20px"}  paddingBottom={"20px"}  >
+          <Box px={"20px"}  paddingBottom={"20px"} ml={"20px"}>
           {getForAdmin.length == 0 ?
            (<CircularProgress  color='Blue'></CircularProgress>) :
             ( getForAdmin.map((blog , index)=>(
-              <Stack component={Link} to="/singleblog" state={{blogId : blog.createdAt}} flexDirection={"row"} gap={"10px"} key={index} mt={"20px"} width={"100%"} bgcolor={"white"} padding={"10px"} borderRadius={"10px"}>
+              <Stack component={Link} to="/singleblog" state={{blogId : blog.createdAt}} flexDirection={"row"} gap={"10px"} key={index} mt={"20px"} alignContent={"end"} width={"100%"} bgcolor={"white"} padding={"10px"} borderRadius={"10px"}>
                 <img src={blog.imageLink || null} className='w-50 rounded-lg'  alt="" />
                 <Box>
                   <Typography variant='h4'><Typography marginBottom={"-40px"}>Title :</Typography> <br />{blog.title}</Typography>
