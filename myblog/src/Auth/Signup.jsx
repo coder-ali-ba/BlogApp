@@ -86,7 +86,7 @@ function Signup() {
          emailAddress :Email,
          userPassword : Password,
          createdAt :Timestamp.now(),
-         userType :"admin",
+         userType :"user",
          profilePic : imageURL,
          userUId : uid ,
          isActive : true
